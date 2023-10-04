@@ -92,7 +92,7 @@ def _graal_binary_implementation(ctx):
     elif (not is_windows and not is_macos) and ctx.attr.shared_library:
         bin_postfix = _BIN_POSTFIX_SO
 
-    args = ctx.actions.args().use_param_file("@%s", use_always = False)
+    args = ctx.actions.args().use_param_file("@%s", use_always=ctx.attr.force_params_file)
     binary = _prepare_native_image_rule_context(
         ctx,
         args,
