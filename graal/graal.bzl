@@ -31,7 +31,7 @@ _native_image = rule(
             default = Label(_BAZEL_CURRENT_CPP_TOOLCHAIN),
         ),
     }),
-    executable = True,
+    executable = False,
     fragments = [
         "cpp",
     ],

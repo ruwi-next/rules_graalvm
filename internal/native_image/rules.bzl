@@ -103,7 +103,7 @@ def _graal_binary_implementation(ctx):
         bin_postfix = _BIN_POSTFIX_SO
 
     args = ctx.actions.args().use_param_file("@%s", use_always=ctx.attr.force_params_file)
-    binary = _prepare_native_image_rule_context(
+    outdir = _prepare_native_image_rule_context(
         ctx,
         args,
         classpath_depset,
@@ -119,7 +119,7 @@ def _graal_binary_implementation(ctx):
         transitive = transitive_inputs,
     )
     run_params = {
-        "outputs": [binary],
+        "outputs": [outdir],
         "executable": graal,
         "inputs": inputs,
         "mnemonic": "NativeImage",
@@ -163,8 +163,8 @@ def _graal_binary_implementation(ctx):
         )
 
     return [DefaultInfo(
-        executable = binary,
-        files = depset([binary]),
+        # executable = binary,
+        files = depset([outdir]),
         runfiles = ctx.runfiles(
             collect_data = True,
             collect_default = True,

@@ -45,7 +45,7 @@ _native_image = rule(
             default = [_DEFAULT_NATIVE_IMAGE_SETTINGS],
         ),
     }),
-    executable = True,
+    executable = False,
     fragments = [
         "apple",
         "cpp",
