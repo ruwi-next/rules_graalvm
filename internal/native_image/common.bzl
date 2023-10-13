@@ -125,6 +125,9 @@ _NATIVE_IMAGE_ATTRS = {
         mandatory = False,
         allow_single_file = True,
     ),
+    "extra_output_files": attr.string_list(
+        mandatory = False,
+    ),
     "_cc_toolchain": attr.label(
         default = Label(_BAZEL_CURRENT_CPP_TOOLCHAIN),
     ),
@@ -163,8 +166,8 @@ def _prepare_native_image_rule_context(
         bin_postfix = None):
     """Prepare a `native-image` build context."""
 
-    out_bin_name = ctx.attr.executable_name.replace("%target%", ctx.attr.name)
-    binary = ctx.actions.declare_file(_prepare_bin_name(out_bin_name, bin_postfix))
+    binary_name = ctx.attr.executable_name.replace("%target%", ctx.attr.name)
+    outdir = ctx.actions.declare_directory("output")
 
     # TODO: This check really should be on the exec platform, not the target platform, but that
     # requires going through a separate rule. Since GraalVM doesn't support cross-compilation, the
@@ -177,7 +180,8 @@ def _prepare_native_image_rule_context(
     _assemble_native_build_options(
         ctx,
         args,
-        binary,
+        binary_name,
+        outdir,
         classpath_depset,
         direct_inputs,
         c_compiler_path,
@@ -185,7 +189,8 @@ def _prepare_native_image_rule_context(
         gvm_toolchain,
         bin_postfix,
     )
-    return binary
+
+    return outdir
 
 ## Exports.
 
@@ -204,3 +209,4 @@ MACOS_CONSTRAINT = _MACOS_CONSTRAINT
 WINDOWS_CONSTRAINT = _WINDOWS_CONSTRAINT
 NATIVE_IMAGE_ATTRS = _NATIVE_IMAGE_ATTRS
 prepare_native_image_rule_context = _prepare_native_image_rule_context
+prepare_bin_name = _prepare_bin_name
