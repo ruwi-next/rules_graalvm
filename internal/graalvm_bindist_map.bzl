@@ -13,6 +13,7 @@ _DistributionType = struct(
     ORACLE = "oracle",
     COMMUNITY = "ce",
     ENTERPRISE = "ee",
+    NIK = "nik",
 )
 
 # Enumerates available platform types.
@@ -110,6 +111,13 @@ _VmReleaseVersionsOracle = {
     "20.0.1": "20.0.1+9.1",
     "17.0.8": "17.0.8+9.1",
     "17.0.7": "17.0.8+9.1",
+}
+
+# VM release versions (for BellSoft Liberica Native Image Kit) for calculating prefixes.
+# buildifier: disable=name-conventions
+_VmReleaseVersionsNik = {
+    "23.1.2": "21-23.1.2",
+    "24.0.0": "22-24.0.0",
 }
 
 def _generate_distribution_coordinate(dist, platform, version, java_version, component = None):
@@ -2458,6 +2466,54 @@ _GRAALVM_BINDIST = {
             "@platforms//cpu:aarch64",
             "@platforms//os:macos",
             "@rules_graalvm//platform/jvm:java22",
+    "nik_23.1.2_macos-aarch64_23.1.2": {
+        # BellSoft Native Image Kit 23.1.2+1 (Java 21), macOS (arm64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.2%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.2+1-macos-aarch64.tar.gz",
+        "sha256": "fd0cc8b675b492fe0a1383ac3c47555afb755a51c1b7812382b9ec8de2897d26",
+        "compatible_with": [
+            "@platforms//cpu:aarch64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java21",
+        ]
+    },
+    "nik_23.1.2_macos-x64_23.1.2": {
+        # BellSoft Native Image Kit 23.1.2+1 (Java 21), macOS (amd64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.2%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.2+1-macos-amd64.tar.gz",
+        "sha256": "e8ecbbdcc3c59efca5dc39ef1716cd6d059edb043089c29e3d64d53d90fbc422",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java21",
+        ]
+    },
+    "nik_23.1.2_windows-x64_23.1.2": {
+        # BellSoft Native Image Kit 23.1.2+1 (Java 21), windows (amd64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.2%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.2+1-windows-amd64.zip",
+        "sha256": "8c5918c51ffce7e3676936ae38c7864519ba01c07d0170df4d4c390191f1b28c",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:windows",
+            "@rules_graalvm//platform/jvm:java21",
+        ]
+    },
+    "nik_23.1.2_linux-x64_23.1.2": {
+        # BellSoft Native Image Kit 23.1.2+1 (Java 21), linux (amd64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.2%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.2+1-linux-amd64.tar.gz",
+        "sha256": "b6d6771d476af6fe867fe15f6d8ac596bf3291f93ecda31b5315225417aff143",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:linux",
+            "@rules_graalvm//platform/jvm:java21",
+        ]
+    },
+    "nik_24.0.0_macos-aarch64_24.0.0": {
+        # BellSoft Native Image Kit 24.0.0+1 (Java 22), macOS (arm64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.0+1-22+37/bellsoft-liberica-vm-full-openjdk22+37-24.0.0+1-macos-aarch64.tar.gz",
+        "sha256": "027198626ae9c99d3ec419850f174c04f036d22d1883e7cc3b61dfaa2667d6d0",
+        "compatible_with": [
+            "@platforms//cpu:aarch64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java22",
         ],
     },
     "oracle_22.0.2_macos-x64_24.0.2": {
@@ -2468,12 +2524,32 @@ _GRAALVM_BINDIST = {
             "@platforms//cpu:x86_64",
             "@platforms//os:macos",
             "@rules_graalvm//platform/jvm:java22",
+        ]
+    },
+    "nik_24.0.0_macos-x64_24.0.0": {
+        # BellSoft Native Image Kit 24.0.0+1 (Java 22), macOS (amd64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.0%2B1-22%2B37/bellsoft-liberica-vm-openjdk22+37-24.0.0+1-macos-amd64.tar.gz",
+        "sha256": "00250b6dc4ec9f2eb312cfa8cc4daf69a2b5019d6c706ded8c2a63662b4abc24",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java22",
         ],
     },
     "oracle_22.0.2_windows-x64_24.0.2": {
         # Oracle GraalVM 22.0.2 (Java 22), Windows (amd64), Version 24.0.2
         "url": "https://download.oracle.com/graalvm/22/latest/graalvm-jdk-22_windows-x64_bin.zip",
         "sha256": "43e24d62b40399d3887fd9d107a823c62a69cdefcacc2df5e7170215628c844a",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:windows",
+            "@rules_graalvm//platform/jvm:java22",
+        ]
+    },
+    "nik_24.0.0_windows-x64_24.0.0": {
+        # BellSoft Native Image Kit 24.0.0+1 (Java 22), windows (amd64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.0%2B1-22%2B37/bellsoft-liberica-vm-openjdk22+37-24.0.0+1-windows-amd64.zip",
+        "sha256": "843492c45efc96b67359337c5c315a75890063e178dc5b774579369e1be07f36",
         "compatible_with": [
             "@platforms//cpu:x86_64",
             "@platforms//os:windows",
@@ -2579,6 +2655,17 @@ _GRAALVM_BINDIST = {
             "@platforms//os:windows",
             "@rules_graalvm//platform/jvm:java23",
         ],
+        ]
+    },
+    "nik_24.0.0_linux-x64_24.0.0": {
+        # BellSoft Native Image Kit 24.0.0+1 (Java 22), linux (amd64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.0%2B1-22%2B37/bellsoft-liberica-vm-full-openjdk22+37-24.0.0+1-linux-amd64.tar.gz",
+        "sha256": "25c893deaeb6221349f65388a651dec230224f1a27623934a7e8c67ba80aeaa2",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:linux",
+            "@rules_graalvm//platform/jvm:java22",
+        ]
     },
 }
 
@@ -2604,6 +2691,9 @@ VmReleaseVersions = _VmReleaseVersions
 
 # buildifier: disable=name-conventions
 VmReleaseVersionsOracle = _VmReleaseVersionsOracle
+
+# buildifier: disable=name-conventions
+VmReleaseVersionsNik = _VmReleaseVersionsNik
 
 generate_distribution_coordinate = _generate_distribution_coordinate
 resolve_distribution_artifact = _resolve_distribution_artifact
