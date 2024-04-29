@@ -119,6 +119,7 @@ _VmReleaseVersionsNik = {
     "23.1.2": "21-23.1.2",
     "23.1.3": "21-23.1.3",
     "24.0.0": "22-24.0.0",
+    "24.0.1": "22-24.0.1",
 }
 
 def _generate_distribution_coordinate(dist, platform, version, java_version, component = None):
@@ -2702,6 +2703,46 @@ _GRAALVM_BINDIST = {
         # BellSoft Native Image Kit 24.0.0+1 (Java 22), linux (amd64)
         "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.0%2B1-22%2B37/bellsoft-liberica-vm-full-openjdk22+37-24.0.0+1-linux-amd64.tar.gz",
         "sha256": "25c893deaeb6221349f65388a651dec230224f1a27623934a7e8c67ba80aeaa2",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:linux",
+            "@rules_graalvm//platform/jvm:java22",
+        ]
+    },
+    "nik_24.0.1_macos-aarch64_24.0.1": {
+        # BellSoft Native Image Kit 24.0.1+1 (Java 22), macOS (arm64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.1+1-22+37/bellsoft-liberica-vm-full-openjdk22+37-24.0.1+1-macos-aarch64.tar.gz",
+        "sha256": "574d82629a77c931d824c7501d045281dd3581243de19d97fb963889b396bf48",
+        "compatible_with": [
+            "@platforms//cpu:aarch64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java22",
+        ]
+    },
+    "nik_24.0.1_macos-x64_24.0.1": {
+        # BellSoft Native Image Kit 24.0.1+1 (Java 22), macOS (amd64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.1%2B1-22%2B37/bellsoft-liberica-vm-openjdk22+37-24.0.1+1-macos-amd64.tar.gz",
+        "sha256": "251e6c03086b1d729524da059145d08ee57f7ef66c7714062ad577d9fbc56d30",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java22",
+        ]
+    },
+    "nik_24.0.1_windows-x64_24.0.1": {
+        # BellSoft Native Image Kit 24.0.1+1 (Java 22), windows (amd64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.1%2B1-22%2B37/bellsoft-liberica-vm-openjdk22+37-24.0.1+1-windows-amd64.zip",
+        "sha256": "62358a997f4876cf33449cf5d3d907e15b79fbe5af7accb406f934145907149e",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:windows",
+            "@rules_graalvm//platform/jvm:java22",
+        ]
+    },
+    "nik_24.0.1_linux-x64_24.0.1": {
+        # BellSoft Native Image Kit 24.0.1+1 (Java 22), linux (amd64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.1%2B1-22%2B37/bellsoft-liberica-vm-full-openjdk22+37-24.0.1+1-linux-amd64.tar.gz",
+        "sha256": "dda3da981173a157a7ef21e5f1a1f189fb0910cc75e41660641f70fac2798c73",
         "compatible_with": [
             "@platforms//cpu:x86_64",
             "@platforms//os:linux",
