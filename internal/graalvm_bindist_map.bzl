@@ -117,6 +117,7 @@ _VmReleaseVersionsOracle = {
 # buildifier: disable=name-conventions
 _VmReleaseVersionsNik = {
     "23.1.2": "21-23.1.2",
+    "23.1.3": "21-23.1.3",
     "24.0.0": "22-24.0.0",
 }
 
@@ -2500,6 +2501,46 @@ _GRAALVM_BINDIST = {
         # BellSoft Native Image Kit 23.1.2+1 (Java 21), linux (amd64)
         "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.2%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.2+1-linux-amd64.tar.gz",
         "sha256": "b6d6771d476af6fe867fe15f6d8ac596bf3291f93ecda31b5315225417aff143",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:linux",
+            "@rules_graalvm//platform/jvm:java21",
+        ]
+    },
+    "nik_23.1.3_macos-aarch64_23.1.3": {
+        # BellSoft Native Image Kit 23.1.3+1 (Java 21), macOS (arm64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.3%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.3+1-macos-aarch64.tar.gz",
+        "sha256": "eefed5d47edc1871ff364f6e94b39dc5bce267045141327af5baa094fc009dc3",
+        "compatible_with": [
+            "@platforms//cpu:aarch64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java21",
+        ]
+    },
+    "nik_23.1.3_macos-x64_23.1.3": {
+        # BellSoft Native Image Kit 23.1.3+1 (Java 21), macOS (amd64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.3%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.3+1-macos-amd64.tar.gz",
+        "sha256": "3c448967e9f9034c47d885ffcc1f2a3e040ff904388ff77aaf5070c7168b2ad5",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java21",
+        ]
+    },
+    "nik_23.1.3_windows-x64_23.1.3": {
+        # BellSoft Native Image Kit 23.1.3+1 (Java 21), windows (amd64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.3%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.3+1-windows-amd64.zip",
+        "sha256": "b2aabb2532af2b9fd24d31c758a13bcdafe2e9bbe396cbf67aa6b388abab18ea",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:windows",
+            "@rules_graalvm//platform/jvm:java21",
+        ]
+    },
+    "nik_23.1.3_linux-x64_23.1.3": {
+        # BellSoft Native Image Kit 23.1.3+1 (Java 21), linux (amd64)
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.3%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.3+1-linux-amd64.tar.gz",
+        "sha256": "3bafde0a753cba800142dbfddded1c9d3fdff23677c7b00b4f5f50e7d10526a2",
         "compatible_with": [
             "@platforms//cpu:x86_64",
             "@platforms//os:linux",
