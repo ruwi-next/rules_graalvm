@@ -85,6 +85,7 @@ def native_image(
         resource_configuration = None,
         proxy_configuration = None,
         profiles = [],
+        large_resources = False,
         **kwargs):
     """Generates and compiles a GraalVM native image from a Java library target.
 
@@ -147,5 +148,6 @@ def native_image(
         profiles = profiles,
         resource_configuration = resource_configuration,
         proxy_configuration = proxy_configuration,
+        large_resources = large_resources,
         **kwargs
     )
