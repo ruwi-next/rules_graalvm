@@ -50,6 +50,10 @@ _NATIVE_IMAGE_ATTRS = {
         mandatory = False,
         default = False,
     ),
+    "large_resources": attr.bool(
+        mandatory = False,
+        default = False,
+    ),
     "allow_fallback": attr.bool(
         mandatory = False,
         default = False,
