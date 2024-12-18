@@ -30,6 +30,12 @@ _BIN_POSTFIX_EXE = ".exe"
 _BIN_POSTFIX_DLL = ".dll"
 _BIN_POSTFIX_SO = ".so"
 
+def _large_resource_set(os, input_count):
+    return {
+        "cpu": 4,
+        "memory": 4096,
+    }
+
 def _build_action_message(ctx):
     _mode_label = {
         "b": "fastbuild",
@@ -155,6 +161,9 @@ def _graal_binary_implementation(ctx):
             .replace("__target__", ctx.attr.shared_library and "[shared lib]" or "[executable]"),
         "toolchain": Label(_GVM_TOOLCHAIN_TYPE),
     }
+
+    if ctx.attr.large_resources:
+        run_params["resource_set"] = _large_resource_set
 
     graal_actions = _wrap_actions_for_graal(ctx.actions)
     if is_macos:
