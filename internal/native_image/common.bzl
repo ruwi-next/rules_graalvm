@@ -69,6 +69,10 @@ _NATIVE_IMAGE_ATTRS = {
         mandatory = False,
         allow_single_file = True,
     ),
+    "force_params_file": attr.bool(
+        mandatory = False,
+        default = False,
+    ),
     "debug": attr.bool(
         mandatory = False,
         default = False,
