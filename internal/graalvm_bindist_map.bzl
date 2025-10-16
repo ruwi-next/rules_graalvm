@@ -21,6 +21,7 @@ _DistributionType = struct(
     ORACLE = "oracle",
     COMMUNITY = "ce",
     ENTERPRISE = "ee",
+    NIK = "nik",
 )
 
 # Enumerates available platform types.
@@ -93,6 +94,7 @@ _VmReleaseVersions = {
     "24.0.2": "22.0.2+9.1",
     "24.0.1": "22.0.1+8.1",
     "24.0.0": "22+36.1",
+    "23.1.8": "21.0.8+13.1",
     "23.1.2": "21.0.2+13.1",
     "21.0.2": "21.0.2+13.1",
     "21.0.1": "21.0.1+12.1",
@@ -133,6 +135,16 @@ _VmReleaseVersionsOracle = {
     "20.0.1": "20.0.1+9.1",
     "17.0.8": "17.0.8+9.1",
     "17.0.7": "17.0.8+9.1",
+}
+
+# VM release versions (for BellSoft Liberica Native Image Kit) for calculating prefixes.
+# buildifier: disable=name-conventions
+_VmReleaseVersionsNik = {
+    "23.1.2": "21-23.1.2",
+    "23.1.3": "21-23.1.3",
+    "23.1.8": "21-23.1.8",
+    "24.0.0": "22-24.0.0",
+    "24.0.1": "22-24.0.1",
 }
 
 def _resolve_version_pair(java_version, version):
@@ -2756,6 +2768,222 @@ _GRAALVM_BINDIST = {
             "@rules_graalvm//platform/jvm:java23",
         ],
     },
+    "nik_23.1.2_macos-aarch64_23.1.2": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.2%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.2+1-macos-aarch64.tar.gz",
+        "sha256": "fd0cc8b675b492fe0a1383ac3c47555afb755a51c1b7812382b9ec8de2897d26",
+        "compatible_with": [
+            "@platforms//cpu:aarch64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java21",
+        ],
+    },
+    "nik_23.1.2_macos-x64_23.1.2": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.2%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.2+1-macos-amd64.tar.gz",
+        "sha256": "e8ecbbdcc3c59efca5dc39ef1716cd6d059edb043089c29e3d64d53d90fbc422",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java21",
+        ],
+    },
+    "nik_23.1.2_windows-x64_23.1.2": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.2%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.2+1-windows-amd64.zip",
+        "sha256": "8c5918c51ffce7e3676936ae38c7864519ba01c07d0170df4d4c390191f1b28c",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:windows",
+            "@rules_graalvm//platform/jvm:java21",
+        ],
+    },
+    "nik_23.1.2_linux-x64_23.1.2": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.2%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.2+1-linux-amd64.tar.gz",
+        "sha256": "b6d6771d476af6fe867fe15f6d8ac596bf3291f93ecda31b5315225417aff143",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:linux",
+            "@rules_graalvm//platform/jvm:java21",
+        ],
+    },
+    "nik_23.1.3_macos-aarch64_23.1.3": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.3%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.3+1-macos-aarch64.tar.gz",
+        "sha256": "eefed5d47edc1871ff364f6e94b39dc5bce267045141327af5baa094fc009dc3",
+        "compatible_with": [
+            "@platforms//cpu:aarch64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java21",
+        ]
+    },
+    "nik_23.1.3_macos-x64_23.1.3": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.3%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.3+1-macos-amd64.tar.gz",
+        "sha256": "3c448967e9f9034c47d885ffcc1f2a3e040ff904388ff77aaf5070c7168b2ad5",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java21",
+        ],
+    },
+    "nik_23.1.3_windows-x64_23.1.3": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.3%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.3+1-windows-amd64.zip",
+        "sha256": "b2aabb2532af2b9fd24d31c758a13bcdafe2e9bbe396cbf67aa6b388abab18ea",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:windows",
+            "@rules_graalvm//platform/jvm:java21",
+        ],
+    },
+    "nik_23.1.3_linux-x64_23.1.3": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.3%2B1-21.0.2%2B14/bellsoft-liberica-vm-full-openjdk21.0.2+14-23.1.3+1-linux-amd64.tar.gz",
+        "sha256": "3bafde0a753cba800142dbfddded1c9d3fdff23677c7b00b4f5f50e7d10526a2",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:linux",
+            "@rules_graalvm//platform/jvm:java21",
+        ],
+    },
+    "nik_23.1.8_linux-x64_23.1.8": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.8%2B1-21.0.8%2B13/bellsoft-liberica-vm-full-openjdk21.0.8%2B13-23.1.8%2B1-linux-amd64.tar.gz",
+        "sha256": "b057d9de0625c11ee797cfd679d4d52c9ccb149544bd13d10d388997c8fc494b",
+        "compatible_with": [
+            "@platforms://cpu:x86_64",
+            "@platforms//os:linux",
+            "@rules_graalvm//platform/jvm:java21"
+        ]
+    },
+    "nik_23.1.8_windows-x64_23.1.8": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.8%2B1-21.0.8%2B13/bellsoft-liberica-vm-full-openjdk21.0.8%2B13-23.1.8%2B1-windows-amd64.zip",
+        "sha256": "de2d4805e57e0ca2b4ed1f6718caa963d27552acf9936caaac62a0c1dff20b0e",
+        "compatible_with": [
+            "@platforms://cpu:x86_64",
+            "@platforms//os:windows",
+            "@rules_graalvm//platform/jvm:java21"
+        ]
+    },
+    "nik_23.1.8_macos-x64_23.1.8": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.8%2B1-21.0.8%2B13/bellsoft-liberica-vm-full-openjdk21.0.8%2B13-23.1.8%2B1-macos-amd64.tar.gz",
+        "sha256": "2089c443aaefaa52288807c5664b98b3f905be0cd0928c02a43429d520c04167",
+        "compatible_with": [
+            "@platforms://cpu:x86_64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java21"
+        ]
+    },
+    "nik_23.1.8_macos-aarch64_23.1.8": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/23.1.8%2B1-21.0.8%2B13/bellsoft-liberica-vm-full-openjdk21.0.8%2B13-23.1.8%2B1-macos-aarch64.tar.gz",
+        "sha256": "0231465d61b5cbbaa5c93a16a4dcff9ff35ede98c9ced7e6c7387c8e169e500c",
+        "compatible_with": [
+            "@platforms://cpu:aarch64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java21"
+        ]
+    },
+    "nik_24.0.0_macos-aarch64_24.0.0": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.0+1-22+37/bellsoft-liberica-vm-full-openjdk22+37-24.0.0+1-macos-aarch64.tar.gz",
+        "sha256": "027198626ae9c99d3ec419850f174c04f036d22d1883e7cc3b61dfaa2667d6d0",
+        "compatible_with": [
+            "@platforms//cpu:aarch64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java22",
+        ],
+    },
+    "nik_24.0.0_macos-x64_24.0.0": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.0%2B1-22%2B37/bellsoft-liberica-vm-openjdk22+37-24.0.0+1-macos-amd64.tar.gz",
+        "sha256": "00250b6dc4ec9f2eb312cfa8cc4daf69a2b5019d6c706ded8c2a63662b4abc24",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java22",
+        ],
+    },
+    "nik_24.0.0_windows-x64_24.0.0": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.0%2B1-22%2B37/bellsoft-liberica-vm-openjdk22+37-24.0.0+1-windows-amd64.zip",
+        "sha256": "843492c45efc96b67359337c5c315a75890063e178dc5b774579369e1be07f36",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:windows",
+            "@rules_graalvm//platform/jvm:java22",
+        ],
+    },
+    "nik_24.0.0_linux-x64_24.0.0": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.0%2B1-22%2B37/bellsoft-liberica-vm-full-openjdk22+37-24.0.0+1-linux-amd64.tar.gz",
+        "sha256": "25c893deaeb6221349f65388a651dec230224f1a27623934a7e8c67ba80aeaa2",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:linux",
+            "@rules_graalvm//platform/jvm:java22",
+        ],
+    },
+    "nik_24.0.1_macos-aarch64_24.0.1": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.1+1-22+37/bellsoft-liberica-vm-full-openjdk22+37-24.0.1+1-macos-aarch64.tar.gz",
+        "sha256": "574d82629a77c931d824c7501d045281dd3581243de19d97fb963889b396bf48",
+        "compatible_with": [
+            "@platforms//cpu:aarch64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java22",
+        ],
+    },
+    "nik_24.0.1_macos-x64_24.0.1": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.1%2B1-22%2B37/bellsoft-liberica-vm-openjdk22+37-24.0.1+1-macos-amd64.tar.gz",
+        "sha256": "251e6c03086b1d729524da059145d08ee57f7ef66c7714062ad577d9fbc56d30",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java22",
+        ]
+    },
+    "nik_24.0.1_windows-x64_24.0.1": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.1%2B1-22%2B37/bellsoft-liberica-vm-openjdk22+37-24.0.1+1-windows-amd64.zip",
+        "sha256": "62358a997f4876cf33449cf5d3d907e15b79fbe5af7accb406f934145907149e",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:windows",
+            "@rules_graalvm//platform/jvm:java22",
+        ]
+    },
+    "nik_24.0.1_linux-x64_24.0.1": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.0.1%2B1-22%2B37/bellsoft-liberica-vm-full-openjdk22+37-24.0.1+1-linux-amd64.tar.gz",
+        "sha256": "dda3da981173a157a7ef21e5f1a1f189fb0910cc75e41660641f70fac2798c73",
+        "compatible_with": [
+            "@platforms//cpu:x86_64",
+            "@platforms//os:linux",
+            "@rules_graalvm//platform/jvm:java22",
+        ],
+    },
+    "nik_24.2.2_linux-x64_24.2.2": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.2.2%2B1-24.0.2%2B13/bellsoft-liberica-vm-full-openjdk24.0.2%2B13-24.2.2%2B1-linux-amd64.tar.gz",
+        "sha256": "1f1e32a4cbc88a81fa2f46579425f00a1f8d51049a51c0d9c687696e28a44f81",
+        "compatible_with": [
+            "@platforms://cpu:x86_64",
+            "@platforms//os:linux",
+            "@rules_graalvm//platform/jvm:java24"
+        ]
+    },
+    "nik_24.2.2_windows-x64_24.2.2": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.2.2%2B1-24.0.2%2B13/bellsoft-liberica-vm-full-openjdk24.0.2%2B13-24.2.2%2B1-windows-amd64.zip",
+        "sha256": "22a16356877deb369c4abfe36ea35c39bcd13abc003ec8da97c652927a401a81",
+        "compatible_with": [
+            "@platforms://cpu:x86_64",
+            "@platforms//os:windows",
+            "@rules_graalvm//platform/jvm:java24"
+        ]
+    },
+    "nik_24.2.2_macos-x64_24.2.2": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.2.2%2B1-24.0.2%2B13/bellsoft-liberica-vm-full-openjdk24.0.2%2B13-24.2.2%2B1-macos-amd64.tar.gz",
+        "sha256": "c63331c53a029c55872b91f83ff8c5c902c950d6cb83b89550e8252c76e501b8",
+        "compatible_with": [
+            "@platforms://cpu:x86_64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java24"
+        ]
+    },
+    "nik_24.2.2_macos-aarch64_24.2.2": {
+        "url": "https://github.com/bell-sw/LibericaNIK/releases/download/24.2.2%2B1-24.0.2%2B13/bellsoft-liberica-vm-full-openjdk24.0.2%2B13-24.2.2%2B1-macos-aarch64.tar.gz",
+        "sha256": "dcead758891ae73c5c2fe4e333beb18daaf0e6c665aeb5034d897068954258ad",
+        "compatible_with": [
+            "@platforms://cpu:aarch64",
+            "@platforms//os:macos",
+            "@rules_graalvm//platform/jvm:java24"
+        ]
+    },
 }
 
 # Exports.
@@ -2789,6 +3017,9 @@ VmReleaseVersions = _VmReleaseVersions
 
 # buildifier: disable=name-conventions
 VmReleaseVersionsOracle = _VmReleaseVersionsOracle
+
+# buildifier: disable=name-conventions
+VmReleaseVersionsNik = _VmReleaseVersionsNik
 
 generate_distribution_coordinate = _generate_distribution_coordinate
 resolve_distribution_artifact = _resolve_distribution_artifact

@@ -23,6 +23,7 @@ load(
     "ComponentDependencies",
     "VmReleaseVersions",
     "VmReleaseVersionsOracle",
+    "VmReleaseVersionsNik",
     "resolve_distribution_artifact",
     "resolve_version_pair",
     Component = "DistributionComponent",
@@ -284,6 +285,10 @@ def _graal_bindist_repository_impl(ctx):
             "community": "ce",
             "oracle": "oracle",
             "gvm": "oracle",
+            "nik": "nik",
+            "liberica": "nik",
+            "bellsoft": "nik",
+            "libericanik": "nik",
         }
         dist_name = dist_names[distribution]
         if not dist_name:
@@ -327,6 +332,9 @@ def _graal_bindist_repository_impl(ctx):
                 if dist_name == Distribution.ORACLE:
                     prefix_version = VmReleaseVersionsOracle[version]
                     prefix = "graalvm-jdk-%s" % (prefix_version)
+                elif dist_name == Distribution.NIK:
+                    prefix_version = VmReleaseVersionsNik[version]
+                    prefix = "bellsoft-liberica-vm-full-openjdk%s" % (prefix_version)
                 else:
                     prefix_version = VmReleaseVersions[version]
                     prefix = "graalvm-community-openjdk-%s" % (prefix_version)
