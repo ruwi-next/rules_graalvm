@@ -1,5 +1,6 @@
 "Defines common properties shared by modern and legacy Native Image rules."
 
+load("@rules_cc//cc/common:cc_info.bzl", "CcInfo")
 load("@rules_java//java/common:java_info.bzl", "JavaInfo")
 load(
     "//internal/native_image:builder.bzl",
