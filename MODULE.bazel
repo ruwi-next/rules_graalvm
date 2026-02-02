@@ -45,6 +45,10 @@ bazel_dep(
     version = "1.15.1",
     repo_name = "build_bazel_apple_support",
 )
+bazel_dep(
+    name = "rules_cc",
+    version = "0.0.9",
+)
 
 ##
 ## Dependencies: Development
@@ -53,11 +57,6 @@ bazel_dep(
 bazel_dep(
     name = "rules_license",
     version = "0.0.7",
-    dev_dependency = True,
-)
-bazel_dep(
-    name = "rules_cc",
-    version = "0.0.9",
     dev_dependency = True,
 )
 bazel_dep(
