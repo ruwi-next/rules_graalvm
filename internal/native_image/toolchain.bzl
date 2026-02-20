@@ -15,10 +15,8 @@ load(
     "CPP_LINK_STATIC_LIBRARY_ACTION_NAME",
     "C_COMPILE_ACTION_NAME",
 )
-load(
-    "@bazel_tools//tools/cpp:toolchain_utils.bzl",
-    "find_cpp_toolchain",
-)
+load("@rules_cc//cc:find_cc_toolchain.bzl", "find_cc_toolchain")
+load("@rules_cc//cc/common:cc_common.bzl", "cc_common")
 
 def resolve_cc_toolchain(ctx, transitive_inputs, *, is_windows):
     """Build a context struct for accessing the native C toolchain.
@@ -37,7 +35,7 @@ def resolve_cc_toolchain(ctx, transitive_inputs, *, is_windows):
         Resulting struct; see method documentation for parameters."""
 
     # begin resolving native toolchains
-    cc_toolchain = find_cpp_toolchain(ctx)
+    cc_toolchain = find_cc_toolchain(ctx)
     transitive_inputs.append(cc_toolchain.all_files)
 
     feature_configuration = cc_common.configure_features(
