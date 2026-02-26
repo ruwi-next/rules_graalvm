@@ -45,6 +45,19 @@ _NONLEGACY_X86_TAG = "x64"
 _LEGACY_DARWIN_TAG = "darwin"
 _NONLEGACY_DARWIN_TAG = "macos"
 
+
+dist_names = {
+    "ce": "ce",
+    "community": "ce",
+    "oracle": "oracle",
+    "gvm": "oracle",
+    "nik": "nik",
+    "liberica": "nik",
+    "bellsoft": "nik",
+    "libericanik": "nik",
+}
+
+
 def _get_artifact_info(ctx, dist, platform, version, component = None, strict = True):
     info = resolve_distribution_artifact(
         dist,
@@ -207,7 +220,65 @@ def _detect_older_gvm_version(ctx):
 def _graal_bindist_repository_impl(ctx):
     """Implements the GraalVM repository rule (`graalvm_repository`)."""
 
-    if ctx.attr.distribution == None or _detect_older_gvm_version(ctx):
+    if len(ctx.attr.custom_urls.keys()) != 0:
+        platform, os, archive = _get_platform(ctx, True)
+        version = ctx.attr.version
+        distribution = ctx.attr.distribution or Distribution.COMMUNITY
+        java_version = ctx.attr.java_version
+
+        dist_name = dist_names[distribution]
+        if not dist_name:
+            fail("Cannot find distribution name for GraalVM: " + ctx.attr.distribution)
+
+        ctx.report_progress("Downloading GraalVM")
+
+        # resolve & download vm
+        prefix = None
+        url = ctx.attr.custom_urls[platform]
+        sha256 = ctx.attr.custom_sha256s[platform]
+        archive_internal_prefix = _graal_v2_archive_internal_prefixes[os]
+        if dist_name == Distribution.ORACLE:
+            prefix = "graalvm-jdk-%s" % (version)
+        elif dist_name == Distribution.NIK:
+            prefix = "bellsoft-liberica-vm-full-openjdk%s" % (version)
+        else:
+            prefix = "graalvm-community-openjdk-%s" % (version)
+        effective_prefix = "%s/%s" % (prefix, archive_internal_prefix)
+
+        ctx.download_and_extract(
+            url = [url],
+            sha256 = sha256 or ctx.attr.sha256,
+            stripPrefix = effective_prefix,
+        )
+        bin_tail = ""
+        shell_tail = ""
+        if "windows" in os:
+            bin_tail = "exe"
+            shell_tail = "cmd"
+
+        # pluck `gu` because we need to use it
+        gu_cmd = _relative_binpath(bin_tail, "gu", shell_tail)
+
+        _bin_paths = [
+            ("gu", gu_cmd, []),
+            ("java", _relative_binpath(bin_tail, "java"), []),
+            ("javac", _relative_binpath(bin_tail, "javac"), []),
+            ("polyglot", _relative_binpath(bin_tail, "polyglot"), []),
+            (Component.NATIVE_IMAGE, _relative_binpath(shell_tail, "native-image"), []),
+        ]
+
+        _conditional_paths = [
+            (Component.WASM, "wasm", _relative_binpath(bin_tail, "wasm"), []),
+            (Component.PYTHON, "python", _relative_binpath(bin_tail, "python"), []),
+            (Component.RUBY, "ruby", _relative_binpath(bin_tail, "ruby"), []),
+            (Component.LLVM, "lli", _relative_binpath(bin_tail, "lli"), []),
+            (Component.JS, "js", _relative_binpath(bin_tail, "js"), [
+                _relative_binpath(bin_tail, paths.join("languages", "js", "bin", "js")),
+            ]),
+        ]
+
+        all_components = []
+    elif ctx.attr.distribution == None or _detect_older_gvm_version(ctx):
         platform, os, archive = _get_platform(ctx, False)
         version = ctx.attr.version
         java_version = ctx.attr.java_version
@@ -279,12 +350,6 @@ def _graal_bindist_repository_impl(ctx):
         _check_version(version, java_version, True)
         ctx.report_progress("Downloading GraalVM")
 
-        dist_names = {
-            "ce": "ce",
-            "community": "ce",
-            "oracle": "oracle",
-            "gvm": "oracle",
-        }
         dist_name = dist_names[distribution]
         if not dist_name:
             fail("Cannot find distribution name for GraalVM: " + ctx.attr.distribution)
@@ -692,6 +757,8 @@ SHA-256 fingerprint for a custom toolchain. Optional. If unspecified, use of cus
 toolchains may yield hermeticity warnings.
 """,
         ),
+        "custom_urls": attr.string_dict(mandatory = False),
+        "custom_sha256s": attr.string_dict(mandatory = False),
     },
     implementation = _graal_bindist_repository_impl,
 )
@@ -716,6 +783,8 @@ def graalvm_repository(
         setup_actions = [],
         register_all = False,
         toolchain_repo_name = None,
+        custom_urls = {},
+        custom_sha256s = {},
         **kwargs):
     """Declare a GraalVM distribution repository, and optionally a Java toolchain to match.
 
@@ -864,6 +933,8 @@ toolchain(
             setup_actions = setup_actions,
             enable_toolchain = toolchain,
             toolchain_config = toolchain_repo_name,
+            custom_urls = custom_urls,
+            custom_sha256s = custom_sha256s,
             **kwargs
         )
     else:

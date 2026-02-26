@@ -21,6 +21,7 @@ _DistributionType = struct(
     ORACLE = "oracle",
     COMMUNITY = "ce",
     ENTERPRISE = "ee",
+    NIK = "nik",
 )
 
 # Enumerates available platform types.
@@ -108,6 +109,7 @@ _VmReleaseVersions = {
     "20.0.1": "20.0.1+9.1",
     "17.0.8": "17.0.8+7.1",
     "17.0.7": "17.0.7+7.1",
+    "25.0.2": "25.0.2+1",
 }
 
 # VM release versions (for Oracle GVM) for calculating prefixes.

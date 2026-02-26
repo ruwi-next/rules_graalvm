@@ -17,6 +17,8 @@ def graalvm_repository(
         components = [],
         setup_actions = [],
         register_all = False,
+        custom_urls = {},
+        custom_sha256s = {},
         **kwargs):
     """Declare a GraalVM distribution repository, and optionally a Java toolchain to match.
 
@@ -58,5 +60,7 @@ def graalvm_repository(
         components = components,
         setup_actions = setup_actions,
         register_all = register_all,
+        custom_urls = custom_urls,
+        custom_sha256s = custom_sha256s,
         **kwargs
     )
